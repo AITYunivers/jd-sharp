@@ -10,8 +10,8 @@
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="Model\" />
-    <Folder Include="Util\" />
     <Folder Include="Service\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 
 </Project>
