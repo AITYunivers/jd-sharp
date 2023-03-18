@@ -8,10 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\JavaSyntax\" />
     <Folder Include="Model\Message\" />
     <Folder Include="Model\Processor\" />
-    <Folder Include="Util\" />
   </ItemGroup>
 
 </Project>

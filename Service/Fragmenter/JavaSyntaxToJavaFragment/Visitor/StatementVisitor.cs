@@ -6,14 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JD_Sharp.Service.Fragmenter.JavaSyntaxToJavaFragment.Visitor
 {
-    internal class StatementVisitor
+    public class StatementVisitor : ExpressionVisitor
     {
         public static KeywordToken ASSERT = new KeywordToken("assert");
         public static KeywordToken BREAK = new KeywordToken("break");
