@@ -8,12 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\JavaFragment\" />
     <Folder Include="Model\JavaSyntax\" />
     <Folder Include="Model\Message\" />
-    <Folder Include="Model\Token\" />
     <Folder Include="Model\Processor\" />
-    <Folder Include="Service\" />
     <Folder Include="Util\" />
   </ItemGroup>
 
