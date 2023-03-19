@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using TypeVisitor = JD_Sharp.Service.Fragmenter.JavaSyntaxToJavaFragment.Visitor.TypeVisitor;
 
 namespace JD_Sharp.Model.JavaSyntax
 {
@@ -23,7 +24,7 @@ namespace JD_Sharp.Model.JavaSyntax
         }
 
         
-    public void visit(AnnotationDeclaration declaration)
+        public void visit(AnnotationDeclaration declaration)
         {
             safeAccept(declaration.getAnnotationDeclarators());
             safeAccept(declaration.getBodyDeclaration());
@@ -31,26 +32,24 @@ namespace JD_Sharp.Model.JavaSyntax
         }
 
         
-    public void visit(ArrayVariableInitializer declaration)
+        public void visit(ArrayVariableInitializer declaration)
         {
             acceptListDeclaration(declaration);
         }
 
         
-    public void visit(BodyDeclaration declaration)
+        public void visit(BodyDeclaration declaration)
         {
             safeAccept(declaration.getMemberDeclarations());
         }
 
         
-    public void visit(ClassDeclaration declaration)
+        public void visit(ClassDeclaration declaration)
         {
             BaseType superType = declaration.getSuperType();
 
             if (superType != null)
-            {
                 superType.accept(this);
-            }
 
             safeAccept(declaration.getTypeParameters());
             safeAccept(declaration.getInterfaces());
@@ -58,12 +57,11 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getBodyDeclaration());
         }
 
-         public void visit(CommentStatement statement) { }
+        public void visit(CommentStatement statement) { }
 
-         public void visit(CommentExpression expression) { }
+        public void visit(CommentExpression expression) { }
 
-        
-    public void visit(ConstructorInvocationExpression expression)
+        public void visit(ConstructorInvocationExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -71,8 +69,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(expression.getParameters());
         }
 
-        
-    public void visit(ConstructorDeclaration declaration)
+        public void visit(ConstructorDeclaration declaration)
         {
             safeAccept(declaration.getAnnotationReferences());
             safeAccept(declaration.getFormalParameters());
@@ -80,8 +77,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getStatements());
         }
 
-        
-    public void visit(EnumDeclaration declaration)
+        public void visit(EnumDeclaration declaration)
         {
             visit((TypeDeclaration)declaration);
             safeAccept(declaration.getInterfaces());
@@ -89,29 +85,24 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getBodyDeclaration());
         }
 
-        
-    public void visit(EnumDeclaration.Constant declaration)
+        public void visit(EnumDeclaration.Constant declaration)
         {
             safeAccept(declaration.getAnnotationReferences());
             safeAccept(declaration.getArguments());
             safeAccept(declaration.getBodyDeclaration());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(Expressions list)
+        public void visit(Expressions list)
         {
             acceptListExpression(list);
         }
 
-        
-    public void visit(ExpressionVariableInitializer declaration)
+        public void visit(ExpressionVariableInitializer declaration)
         {
             declaration.getExpression().accept(this);
         }
 
-        
-    public void visit(FieldDeclaration declaration)
+        public void visit(FieldDeclaration declaration)
         {
             BaseType type = declaration.getType();
 
@@ -120,21 +111,17 @@ namespace JD_Sharp.Model.JavaSyntax
             declaration.getFieldDeclarators().accept(this);
         }
 
-        
-    public void visit(FieldDeclarator declarator)
+        public void visit(FieldDeclarator declarator)
         {
             safeAccept(declarator.getVariableInitializer());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(FieldDeclarators list)
+        public void visit(FieldDeclarators list)
         {
             acceptListDeclaration((List <? extends Declaration >)list);
         }
 
-        
-    public void visit(FormalParameter declaration)
+        public void visit(FormalParameter declaration)
         {
             BaseType type = declaration.getType();
 
@@ -142,29 +129,24 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getAnnotationReferences());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(FormalParameters list)
+        public void visit(FormalParameters list)
         {
             acceptListDeclaration(list);
         }
 
-        
-    public void visit(InstanceInitializerDeclaration declaration)
+        public void visit(InstanceInitializerDeclaration declaration)
         {
             safeAccept(declaration.getStatements());
         }
 
-        
-    public void visit(InterfaceDeclaration declaration)
+        public void visit(InterfaceDeclaration declaration)
         {
             safeAccept(declaration.getInterfaces());
             safeAccept(declaration.getAnnotationReferences());
             safeAccept(declaration.getBodyDeclaration());
         }
 
-        
-    public void visit(LocalVariableDeclaration declaration)
+        public void visit(LocalVariableDeclaration declaration)
         {
             BaseType type = declaration.getType();
 
@@ -172,21 +154,17 @@ namespace JD_Sharp.Model.JavaSyntax
             declaration.getLocalVariableDeclarators().accept(this);
         }
 
-        
-    public void visit(LocalVariableDeclarator declarator)
+        public void visit(LocalVariableDeclarator declarator)
         {
             safeAccept(declarator.getVariableInitializer());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(LocalVariableDeclarators declarators)
+        public void visit(LocalVariableDeclarators declarators)
         {
             acceptListDeclaration(declarators);
         }
 
-        
-    public void visit(MethodDeclaration declaration)
+        public void visit(MethodDeclaration declaration)
         {
             BaseType returnedType = declaration.getReturnedType();
 
@@ -197,25 +175,19 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getStatements());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(MemberDeclarations declarations)
+        public void visit(MemberDeclarations declarations)
         {
             acceptListDeclaration(declarations);
         }
 
-        
-    public void visit(ModuleDeclaration declarations) { }
+        public void visit(ModuleDeclaration declarations) { }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(TypeDeclarations list)
+        public void visit(TypeDeclarations list)
         {
             acceptListDeclaration(list);
         }
 
-        
-    public void visit(ArrayExpression expression)
+        public void visit(ArrayExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -224,17 +196,15 @@ namespace JD_Sharp.Model.JavaSyntax
             expression.getIndex().accept(this);
         }
 
-        
-    public void visit(BinaryOperatorExpression expression)
+        public void visit(BinaryOperatorExpression expression)
         {
             expression.getLeftExpression().accept(this);
             expression.getRightExpression().accept(this);
         }
         
-    public void visit(BooleanExpression expression) { }
+        public void visit(BooleanExpression expression) { }
 
-        
-    public void visit(CastExpression expression)
+        public void visit(CastExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -242,32 +212,28 @@ namespace JD_Sharp.Model.JavaSyntax
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(ConstructorReferenceExpression expression)
+        public void visit(ConstructorReferenceExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(DoubleConstantExpression expression)
+        public void visit(DoubleConstantExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(EnumConstantReferenceExpression expression)
+        public void visit(EnumConstantReferenceExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(FieldReferenceExpression expression)
+        public void visit(FieldReferenceExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -275,24 +241,21 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(expression.getExpression());
         }
 
-        
-    public void visit(FloatConstantExpression expression)
+        public void visit(FloatConstantExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(IntegerConstantExpression expression)
+        public void visit(IntegerConstantExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(InstanceOfExpression expression)
+        public void visit(InstanceOfExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -300,56 +263,49 @@ namespace JD_Sharp.Model.JavaSyntax
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(LambdaFormalParametersExpression expression)
+        public void visit(LambdaFormalParametersExpression expression)
         {
             safeAccept(expression.getFormalParameters());
             expression.getStatements().accept(this);
         }
 
-        
-    public void visit(LambdaIdentifiersExpression expression)
+        public void visit(LambdaIdentifiersExpression expression)
         {
             safeAccept(expression.getStatements());
         }
 
-         public void visit(LengthExpression expression)
+        public void visit(LengthExpression expression)
         {
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(LocalVariableReferenceExpression expression)
+        public void visit(LocalVariableReferenceExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(LongConstantExpression expression)
+        public void visit(LongConstantExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(MethodInvocationExpression expression)
+        public void visit(MethodInvocationExpression expression)
         {
             expression.getExpression().accept(this);
             safeAccept(expression.getNonWildcardTypeArguments());
             safeAccept(expression.getParameters());
         }
 
-        
-    public void visit(MethodReferenceExpression expression)
+        public void visit(MethodReferenceExpression expression)
         {
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(NewArray expression)
+        public void visit(NewArray expression)
         {
             BaseType type = expression.getType();
 
@@ -357,8 +313,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(expression.getDimensionExpressionList());
         }
 
-        
-    public void visit(NewExpression expression)
+        public void visit(NewExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -367,8 +322,7 @@ namespace JD_Sharp.Model.JavaSyntax
             // safeAccept(expression.getBodyDeclaration());
         }
 
-        
-    public void visit(NewInitializedArray expression)
+        public void visit(NewInitializedArray expression)
         {
             BaseType type = expression.getType();
 
@@ -376,55 +330,47 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(expression.getArrayInitializer());
         }
 
-        
-    public void visit(NoExpression expression) { }
+        public void visit(NoExpression expression) { }
 
-        
-    public void visit(NullExpression expression)
+        public void visit(NullExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(TypeReferenceDotClassExpression expression)
+        public void visit(TypeReferenceDotClassExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(ObjectTypeReferenceExpression expression)
+        public void visit(ObjectTypeReferenceExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(ParenthesesExpression expression)
+        public void visit(ParenthesesExpression expression)
         {
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(PostOperatorExpression expression)
+        public void visit(PostOperatorExpression expression)
         {
             expression.getExpression().accept(this);
         }
 
-        
-    public void visit(PreOperatorExpression expression)
+        public void visit(PreOperatorExpression expression)
         {
             expression.getExpression().accept(this);
         }
         
-    public void visit(StringConstantExpression expression) { }
+        public void visit(StringConstantExpression expression) { }
 
-        
-    public void visit(SuperConstructorInvocationExpression expression)
+        public void visit(SuperConstructorInvocationExpression expression)
         {
             BaseType type = expression.getType();
 
@@ -432,85 +378,70 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(expression.getParameters());
         }
 
-        
-    public void visit(SuperExpression expression)
+        public void visit(SuperExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(TernaryOperatorExpression expression)
+        public void visit(TernaryOperatorExpression expression)
         {
             expression.getCondition().accept(this);
             expression.getTrueExpression().accept(this);
             expression.getFalseExpression().accept(this);
         }
 
-        
-    public void visit(ThisExpression expression)
+        public void visit(ThisExpression expression)
         {
             BaseType type = expression.getType();
 
             type.accept(this);
         }
 
-        
-    public void visit(AnnotationReference reference)
+        public void visit(AnnotationReference reference)
         {
             safeAccept(reference.getElementValue());
             safeAccept(reference.getElementValuePairs());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(AnnotationReferences list)
+        public void visit(AnnotationReferences list)
         {
             acceptListReference(list);
         }
 
-        
-    public void visit(ExpressionElementValue reference)
+        public void visit(ExpressionElementValue reference)
         {
             reference.getExpression().accept(this);
         }
 
-        
-    public void visit(ElementValueArrayInitializerElementValue reference)
+        public void visit(ElementValueArrayInitializerElementValue reference)
         {
             safeAccept(reference.getElementValueArrayInitializer());
         }
 
-        
-    public void visit(AnnotationElementValue reference)
+        public void visit(AnnotationElementValue reference)
         {
             safeAccept(reference.getElementValue());
             safeAccept(reference.getElementValuePairs());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(ElementValues list)
+        public void visit(ElementValues list)
         {
             acceptListReference(list);
         }
 
-        
-    public void visit(ElementValuePair reference)
+        public void visit(ElementValuePair reference)
         {
             reference.getElementValue().accept(this);
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(ElementValuePairs list)
+        public void visit(ElementValuePairs list)
         {
             acceptListReference(list);
         }
 
-        
-    public void visit(ObjectReference reference)
+        public void visit(ObjectReference reference)
         {
             visit((ObjectType)reference);
         }
@@ -520,36 +451,30 @@ namespace JD_Sharp.Model.JavaSyntax
             visit((InnerObjectType)reference);
         }
 
-        
-    public void visit(AssertStatement statement)
+        public void visit(AssertStatement statement)
         {
             statement.getCondition().accept(this);
             safeAccept(statement.getMessage());
         }
 
-        
-    public void visit(BreakStatement statement) { }
+        public void visit(BreakStatement statement) { }
 
-         public void visit(ByteCodeStatement statement) { }
+        public void visit(ByteCodeStatement statement) { }
 
-        
-    public void visit(ContinueStatement statement) { }
+        public void visit(ContinueStatement statement) { }
 
-        
-    public void visit(DoWhileStatement statement)
+        public void visit(DoWhileStatement statement)
         {
             safeAccept(statement.getCondition());
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(ExpressionStatement statement)
+        public void visit(ExpressionStatement statement)
         {
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(ForEachStatement statement)
+        public void visit(ForEachStatement statement)
         {
             BaseType type = statement.getType();
 
@@ -558,8 +483,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(ForStatement statement)
+        public void visit(ForStatement statement)
         {
             safeAccept(statement.getDeclaration());
             safeAccept(statement.getInit());
@@ -568,102 +492,85 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(IfStatement statement)
+        public void visit(IfStatement statement)
         {
             statement.getCondition().accept(this);
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(IfElseStatement statement)
+        public void visit(IfElseStatement statement)
         {
             statement.getCondition().accept(this);
             safeAccept(statement.getStatements());
             statement.getElseStatements().accept(this);
         }
 
-        
-    public void visit(LabelStatement statement)
+        public void visit(LabelStatement statement)
         {
             safeAccept(statement.getStatement());
         }
 
-        
-    public void visit(LambdaExpressionStatement statement)
+        public void visit(LambdaExpressionStatement statement)
         {
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(LocalVariableDeclarationStatement statement)
+        public void visit(LocalVariableDeclarationStatement statement)
         {
             visit((LocalVariableDeclaration)statement);
         }
 
-        
-    public void visit(NoStatement statement) { }
+        public void visit(NoStatement statement) { }
 
-         public void visit(ReturnExpressionStatement statement)
+        public void visit(ReturnExpressionStatement statement)
         {
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(ReturnStatement statement) { }
+        public void visit(ReturnStatement statement) { }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(Statements list)
+        public void visit(Statements list)
         {
             acceptListStatement(list);
         }
 
-        
-    public void visit(SwitchStatement statement)
+        public void visit(SwitchStatement statement)
         {
             statement.getCondition().accept(this);
             acceptListStatement(statement.getBlocks());
         }
 
-        
-    public void visit(SwitchStatement.DefaultLabel statement) { }
+        public void visit(SwitchStatement.DefaultLabel statement) { }
 
-        
-    public void visit(SwitchStatement.ExpressionLabel statement)
+        public void visit(SwitchStatement.ExpressionLabel statement)
         {
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(SwitchStatement.LabelBlock statement)
+        public void visit(SwitchStatement.LabelBlock statement)
         {
             statement.getLabel().accept(this);
             statement.getStatements().accept(this);
         }
 
-        
-    public void visit(SwitchStatement.MultiLabelsBlock statement)
+        public void visit(SwitchStatement.MultiLabelsBlock statement)
         {
             safeAcceptListStatement(statement.getLabels());
             statement.getStatements().accept(this);
         }
 
-        
-    public void visit(SynchronizedStatement statement)
+        public void visit(SynchronizedStatement statement)
         {
             statement.getMonitor().accept(this);
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(ThrowStatement statement)
+        public void visit(ThrowStatement statement)
         {
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(TryStatement statement)
+        public void visit(TryStatement statement)
         {
             safeAcceptListStatement(statement.getResources());
             statement.getTryStatements().accept(this);
@@ -671,8 +578,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(statement.getFinallyStatements());
         }
 
-        
-    public void visit(TryStatement.CatchClause statement)
+        public void visit(TryStatement.CatchClause statement)
         {
             BaseType type = statement.getType();
 
@@ -680,8 +586,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(TryStatement.Resource statement)
+        public void visit(TryStatement.Resource statement)
         {
             BaseType type = statement.getType();
 
@@ -689,36 +594,30 @@ namespace JD_Sharp.Model.JavaSyntax
             statement.getExpression().accept(this);
         }
 
-        
-    public void visit(StaticInitializerDeclaration declaration)
+        public void visit(StaticInitializerDeclaration declaration)
         {
             safeAccept(declaration.getStatements());
         }
 
-        
-    public void visit(TypeDeclarationStatement statement)
+        public void visit(TypeDeclarationStatement statement)
         {
             statement.getTypeDeclaration().accept(this);
         }
 
-        
-    public void visit(WhileStatement statement)
+        public void visit(WhileStatement statement)
         {
             statement.getCondition().accept(this);
             safeAccept(statement.getStatements());
         }
 
-        
-    public void visit(TypeParameter parameter) { }
+        public void visit(TypeParameter parameter) { }
 
-        
-    public void visit(TypeParameterWithTypeBounds parameter)
+        public void visit(TypeParameterWithTypeBounds parameter)
         {
             parameter.getTypeBounds().accept(this);
         }
 
-        
-    public void visit(TypeParameters parameters)
+        public void visit(TypeParameters parameters)
         {
             Iterator<TypeParameter> iterator = parameters.iterator();
 
@@ -731,9 +630,7 @@ namespace JD_Sharp.Model.JavaSyntax
             safeAccept(declaration.getAnnotationReferences());
         }
 
-        
-        @SuppressWarnings("unchecked")
-    public void visit(Types types)
+        public void visit(Types types)
         {
             Iterator<Type> iterator = types.iterator();
 
